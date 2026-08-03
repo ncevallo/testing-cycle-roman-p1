@@ -1,0 +1,19 @@
+============================= test session starts =============================
+platform win32 -- Python 3.14.3, pytest-9.1.1, pluggy-1.6.0
+rootdir: C:\Users\ncevallos2\Downloads\Proyecto ingenieria\testing-cycle-roman-p1
+configfile: pyproject.toml
+testpaths: tests
+plugins: cov-7.1.0
+collected 15 items
+
+tests\test_converter.py ...............                                  [100%]
+
+=============================== tests coverage ================================
+_______________ coverage: platform win32, python 3.14.3-final-0 _______________
+
+Name                     Stmts   Miss Branch BrPart  Cover   Missing
+--------------------------------------------------------------------
+src\roman\converter.py      68     24     34      9    64%   42, 44, 46, 58, 61, 64, 72-74, 79, 83, 88, 92-96, 100-104, 108, 112
+--------------------------------------------------------------------
+TOTAL                       68     24     34      9    64%
+============================= 15 passed in 0.50s ==============================

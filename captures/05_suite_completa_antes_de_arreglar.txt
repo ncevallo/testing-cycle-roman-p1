@@ -1,0 +1,93 @@
+============================= test session starts =============================
+platform win32 -- Python 3.14.3, pytest-9.1.1, pluggy-1.6.0
+rootdir: C:\Users\ncevallos2\Downloads\Proyecto ingenieria\testing-cycle-roman-p1
+configfile: pyproject.toml
+testpaths: tests
+plugins: cov-7.1.0
+collected 52 items
+
+tests\test_acceptance.py FFFF                                            [  7%]
+tests\test_converter.py ...............                                  [ 36%]
+tests\test_integration.py F..                                            [ 42%]
+tests\test_unit.py ..............................                        [100%]
+
+================================== FAILURES ===================================
+_________________ test_acceptance_to_roman_1994_is_canonical __________________
+
+    def test_acceptance_to_roman_1994_is_canonical():
+>       assert to_roman(1994) == "MCMXCIV"
+E       AssertionError: assert 'MCMXCIIII' == 'MCMXCIV'
+E         
+E         - MCMXCIV
+E         ?       ^
+E         + MCMXCIIII
+E         ?       ^^^
+
+tests\test_acceptance.py:16: AssertionError
+____________________ test_acceptance_from_roman_trims_ends ____________________
+
+    def test_acceptance_from_roman_trims_ends():
+>       assert from_roman("  IV  ") == 4
+               ^^^^^^^^^^^^^^^^^^^^
+
+tests\test_acceptance.py:26: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+s = '  IV  '
+
+    def from_roman(s):
+        if not isinstance(s, str):
+            raise RomanError("value must be a string")
+        text = s.upper()
+        if text == "":
+            raise RomanError("empty string is not a roman numeral")
+        for ch in text:
+            if ch not in _SINGLE:
+>               raise RomanError("invalid roman character: " + ch)
+E               roman.converter.RomanError: invalid roman character:
+
+src\roman\converter.py:64: RomanError
+____________ test_acceptance_from_roman_rejects_non_canonical_IIII ____________
+
+    def test_acceptance_from_roman_rejects_non_canonical_IIII():
+>       with pytest.raises(RomanError):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE RomanError
+
+tests\test_acceptance.py:36: Failed
+_______________ test_acceptance_is_valid_rejects_non_canonical ________________
+
+    def test_acceptance_is_valid_rejects_non_canonical():
+>       assert is_valid_roman("IIII") is False
+E       AssertionError: assert True is False
+E        +  where True = is_valid_roman('IIII')
+
+tests\test_acceptance.py:42: AssertionError
+___________________ test_add_result_is_canonical_and_valid ____________________
+
+    def test_add_result_is_canonical_and_valid():
+        # from_roman("II") + from_roman("II") == 4, and to_roman(4) must be "IV".
+        # The result must also be accepted by is_valid_roman (section 7).
+        result = add_roman("II", "II")
+>       assert result == "IV"
+E       AssertionError: assert 'IIII' == 'IV'
+E         
+E         - IV
+E         + IIII
+
+tests\test_integration.py:17: AssertionError
+=============================== tests coverage ================================
+_______________ coverage: platform win32, python 3.14.3-final-0 _______________
+
+Name                     Stmts   Miss Branch BrPart  Cover   Missing
+--------------------------------------------------------------------
+src\roman\converter.py      68      6     34      0    90%   88, 92-96
+--------------------------------------------------------------------
+TOTAL                       68      6     34      0    90%
+=========================== short test summary info ===========================
+FAILED tests/test_acceptance.py::test_acceptance_to_roman_1994_is_canonical
+FAILED tests/test_acceptance.py::test_acceptance_from_roman_trims_ends - roma...
+FAILED tests/test_acceptance.py::test_acceptance_from_roman_rejects_non_canonical_IIII
+FAILED tests/test_acceptance.py::test_acceptance_is_valid_rejects_non_canonical
+FAILED tests/test_integration.py::test_add_result_is_canonical_and_valid - As...
+======================== 5 failed, 47 passed in 0.66s =========================

@@ -1,0 +1,71 @@
+============================= test session starts =============================
+platform win32 -- Python 3.14.3, pytest-9.1.1, pluggy-1.6.0 -- C:\Users\ncevallos2\Downloads\Proyecto ingenieria\testing-cycle-roman-p1\.venv\Scripts\python.exe
+cachedir: .pytest_cache
+rootdir: C:\Users\ncevallos2\Downloads\Proyecto ingenieria\testing-cycle-roman-p1
+configfile: pyproject.toml
+plugins: cov-7.1.0
+collecting ... collected 4 items
+
+tests/test_acceptance.py::test_acceptance_to_roman_1994_is_canonical FAILED [ 25%]
+tests/test_acceptance.py::test_acceptance_from_roman_trims_ends FAILED   [ 50%]
+tests/test_acceptance.py::test_acceptance_from_roman_rejects_non_canonical_IIII FAILED [ 75%]
+tests/test_acceptance.py::test_acceptance_is_valid_rejects_non_canonical FAILED [100%]
+
+================================== FAILURES ===================================
+_________________ test_acceptance_to_roman_1994_is_canonical __________________
+
+    def test_acceptance_to_roman_1994_is_canonical():
+>       assert to_roman(1994) == "MCMXCIV"
+E       AssertionError: assert 'MCMXCIIII' == 'MCMXCIV'
+E         
+E         - MCMXCIV
+E         ?       ^
+E         + MCMXCIIII
+E         ?       ^^^
+
+tests\test_acceptance.py:16: AssertionError
+____________________ test_acceptance_from_roman_trims_ends ____________________
+
+    def test_acceptance_from_roman_trims_ends():
+>       assert from_roman("  IV  ") == 4
+               ^^^^^^^^^^^^^^^^^^^^
+
+tests\test_acceptance.py:26: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+s = '  IV  '
+
+    def from_roman(s):
+        if not isinstance(s, str):
+            raise RomanError("value must be a string")
+        text = s.upper()
+        if text == "":
+            raise RomanError("empty string is not a roman numeral")
+        for ch in text:
+            if ch not in _SINGLE:
+>               raise RomanError("invalid roman character: " + ch)
+E               roman.converter.RomanError: invalid roman character:
+
+src\roman\converter.py:64: RomanError
+____________ test_acceptance_from_roman_rejects_non_canonical_IIII ____________
+
+    def test_acceptance_from_roman_rejects_non_canonical_IIII():
+>       with pytest.raises(RomanError):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE RomanError
+
+tests\test_acceptance.py:36: Failed
+_______________ test_acceptance_is_valid_rejects_non_canonical ________________
+
+    def test_acceptance_is_valid_rejects_non_canonical():
+>       assert is_valid_roman("IIII") is False
+E       AssertionError: assert True is False
+E        +  where True = is_valid_roman('IIII')
+
+tests\test_acceptance.py:42: AssertionError
+=========================== short test summary info ===========================
+FAILED tests/test_acceptance.py::test_acceptance_to_roman_1994_is_canonical
+FAILED tests/test_acceptance.py::test_acceptance_from_roman_trims_ends - roma...
+FAILED tests/test_acceptance.py::test_acceptance_from_roman_rejects_non_canonical_IIII
+FAILED tests/test_acceptance.py::test_acceptance_is_valid_rejects_non_canonical
+============================== 4 failed in 0.38s ==============================

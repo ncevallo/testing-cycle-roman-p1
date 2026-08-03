@@ -1,0 +1,29 @@
+============================= test session starts =============================
+platform win32 -- Python 3.14.3, pytest-9.1.1, pluggy-1.6.0 -- C:\Users\ncevallos2\Downloads\Proyecto ingenieria\testing-cycle-roman-p1\.venv\Scripts\python.exe
+cachedir: .pytest_cache
+rootdir: C:\Users\ncevallos2\Downloads\Proyecto ingenieria\testing-cycle-roman-p1
+configfile: pyproject.toml
+plugins: cov-7.1.0
+collecting ... collected 3 items
+
+tests/test_integration.py::test_add_result_is_canonical_and_valid FAILED [ 33%]
+tests/test_integration.py::test_add_roundtrip_consistency PASSED         [ 66%]
+tests/test_integration.py::test_subtract_result_is_valid PASSED          [100%]
+
+================================== FAILURES ===================================
+___________________ test_add_result_is_canonical_and_valid ____________________
+
+    def test_add_result_is_canonical_and_valid():
+        # from_roman("II") + from_roman("II") == 4, and to_roman(4) must be "IV".
+        # The result must also be accepted by is_valid_roman (section 7).
+        result = add_roman("II", "II")
+>       assert result == "IV"
+E       AssertionError: assert 'IIII' == 'IV'
+E         
+E         - IV
+E         + IIII
+
+tests\test_integration.py:17: AssertionError
+=========================== short test summary info ===========================
+FAILED tests/test_integration.py::test_add_result_is_canonical_and_valid - As...
+========================= 1 failed, 2 passed in 0.29s =========================
